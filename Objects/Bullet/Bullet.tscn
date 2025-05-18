@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://8dat3tgt14ty"]
+
+[ext_resource type="PackedScene" uid="uid://3ab4gitpvqv0" path="res://common/HitBox/HitBox.tscn" id="1_or5jq"]
+[ext_resource type="Script" uid="uid://b070at5rckong" path="res://Objects/Bullet/bullet.gd" id="1_pnq77"]
+[ext_resource type="Texture2D" uid="uid://cnnkkme0v3bxt" path="res://icon.svg" id="3_nto23"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nux34"]
+radius = 21.0238
+
+[node name="Bullet" type="Node2D" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("1_pnq77")
+hitbox = NodePath("HitBox")
+
+[node name="HitBox" parent="." instance=ExtResource("1_or5jq")]
+unique_name_in_owner = true
+monitoring = false
+damage = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_nux34")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(0.256836, 0.244757)
+texture = ExtResource("3_nto23")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(5.66244e-07, 3.57628e-07)
+scale = Vector2(1.8, 1.7)
+
+[connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
