@@ -10,5 +10,5 @@ class_name Hurtbox
 func _on_hit(area: Area2D) -> void:
 	if area is Hitbox:
 		health_component.get_hit(area.damage)
-		area.queue_free()
+		area.get_parent().queue_free()
 		
